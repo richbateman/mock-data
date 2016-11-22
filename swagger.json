@@ -7,21 +7,21 @@
     },
     "host": "www.mockaroo.com",
     "basePath": "/api",
-    "schemes": ["https"],
+    "schemes": ["http"],
     "consumes": ["application/json"],
     "produces": ["application/json"],
-    "paths": {"/generate.json": {"post": {
-        "summary": "Generate Data",
-        "operationId": "generateData",
-        "tags": ["generate"],
-        "parameters": [
-            {
+    "paths": {
+        "/generate.json": {"post": {
+            "summary": "Generate Data",
+            "operationId": "generateData",
+            "tags": ["generate"],
+            "parameters": [{
                 "name": "key",
                 "in": "query",
                 "description": "Obtain key from Mockaroo",
                 "required": true,
                 "type": "string"
-            },
+                },
             {
                 "name": "count",
                 "in": "query",
@@ -33,24 +33,79 @@
             {
                 "name": "schema",
                 "in": "query",
-                "description": "Set pre-defined schema",
+                "description": "Number of records to generate",
                 "required": true,
                 "type": "string"
+                }],
+            "responses": {
+                "200": {
+                    "description": "An paged array of pets",
+                    "headers": {"x-next": {
+                        "type": "string",
+                        "description": "A link to the next page of responses"
+                    }},
+                    "schema": {"$ref": "#/definitions/Pets"}
+                },
+                "default": {
+                    "description": "unexpected error",
+                    "schema": {"$ref": "#/definitions/Error"}
+                }
             }
-        ],
-        "responses": {
-            "200": {
-                "description": "An paged array of pets",
-                "headers": {"x-next": {
-                    "type": "string",
-                    "description": "A link to the next page of responses"
-                }},
-                "schema": {"$ref": "#/definitions/Pets"}
-            },
-            "default": {
-                "description": "unexpected error",
-                "schema": {"$ref": "#/definitions/Error"}
+        }},
+        "/pets/{petId}": {"get": {
+            "summary": "Info for a specific pet",
+            "operationId": "showPetById",
+            "tags": ["pets"],
+            "parameters": [{
+                "name": "petId",
+                "in": "path",
+                "required": true,
+                "description": "The id of the pet to retrieve",
+                "type": "string"
+            }],
+            "responses": {
+                "200": {
+                    "description": "Expected response to a valid request",
+                    "schema": {"$ref": "#/definitions/Pets"}
+                },
+                "default": {
+                    "description": "unexpected error",
+                    "schema": {"$ref": "#/definitions/Error"}
+                }
+            }
+        }}
+    },
+    "definitions": {
+        "Pet": {
+            "required": [
+                "id",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {"type": "string"},
+                "tag": {"type": "string"}
+            }
+        },
+        "Pets": {
+            "type": "array",
+            "items": {"$ref": "#/definitions/Pet"}
+        },
+        "Error": {
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {"type": "string"}
             }
         }
-    }}}
     }
+}
