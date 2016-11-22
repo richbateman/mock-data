@@ -5,23 +5,23 @@
         "title": "Mockaroo",
         "license": {"name": "MIT"}
     },
-    "host": "www.mockaroo.com",
-    "basePath": "/api",
-    "schemes": ["http"],
+    "host": "virtserver.swaggerhub.com",
+    "basePath": "/richbateman/mock-api/1.0.0",
+    "schemes": ["https"],
     "consumes": ["application/json"],
     "produces": ["application/json"],
-    "paths": {
-        "/generate.json": {"post": {
-            "summary": "Generate Data",
-            "operationId": "generateData",
-            "tags": ["generate"],
-            "parameters": [{
+    "paths": {"/generate.json": {"post": {
+        "summary": "Generate Data",
+        "operationId": "generateData",
+        "tags": ["generate"],
+        "parameters": [
+            {
                 "name": "key",
                 "in": "query",
                 "description": "Obtain key from Mockaroo",
                 "required": true,
                 "type": "string"
-                },
+            },
             {
                 "name": "count",
                 "in": "query",
@@ -33,54 +33,28 @@
             {
                 "name": "schema",
                 "in": "query",
-                "description": "Select pre-defined schema",
+                "description": "Set pre-defined schema",
                 "required": true,
                 "type": "string"
-                }],
-            "responses": {
-                "200": {
-                    "description": "Here is your dataset",
-                    "headers": {"x-next": {
-                        "type": "string",
-                        "description": "Here is your dataset"
-                    }},
-                    "schema": {"$ref": "#/definitions/generateData"}
-                },
-                "default": {
-                    "description": "unexpected error",
-                    "schema": {"$ref": "#/definitions/Error"}
-                }
             }
-        }}
+        ],
+        "responses": {
+            "200": {
+                "description": "An paged array of pets",
+                "headers": {"x-next": {
+                    "type": "string",
+                    "description": "A link to the next page of responses"
+                }},
+                "schema": {"$ref": "#/definitions/Pets"}
             },
-    "definitions": {
-        "generate": {
-            "required": [
-                "count",
-                "key",
-                "schema"
-            ],
-            "properties": {
-                "count": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "key": {"type": "string"},
-                "schema": {"type": "string"}
-            }
-        },
-        "Error": {
-            "required": [
-                "code",
-                "message"
-            ],
-            "properties": {
-                "code": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "message": {"type": "string"}
+            "default": {
+                "description": "unexpected error",
+                "schema": {"$ref": "#/definitions/Error"}
+            },
+            "output": {
+                "description": "File output",
+                "schema": {"type": "file"}
             }
         }
+    }}}
     }
-}
