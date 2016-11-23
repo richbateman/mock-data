@@ -10,7 +10,7 @@
     "schemes": ["https"],
     "consumes": ["application/json"],
     "produces": ["application/json"],
-    "paths": {"/generate.txt": {"post": {
+    "paths": {"/generate.csv": {"post": {
         "summary": "Generate Data",
         "operationId": "generateData",
         "tags": ["generate"],
