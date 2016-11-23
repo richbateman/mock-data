@@ -42,7 +42,7 @@
           "200": {
             "description": "Expected response to a valid request",
             "schema": {
-              "default": "xml"
+              "$ref": "#/definitions/data"
             }
           },
           "default": {
@@ -56,20 +56,19 @@
     }
   },
   "definitions": {
-    "Pet": {
+    "data": {
       "required": [
-        "id",
-        "name"
+        "Name",
+        "LLC_BI__Active__c"
       ],
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
+        "Name": {
           "type": "string"
         },
-        "tag": {
+        "LLC_BI__Active__c": {
+          "type": "string"
+        },
+        "CreateContact": {
           "type": "string"
         }
       }
