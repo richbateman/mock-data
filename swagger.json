@@ -42,7 +42,7 @@
           "200": {
             "description": "Expected response to a valid request",
             "schema": {
-              "default": "xml"
+              "default": "json"
             }
           },
           "default": {
