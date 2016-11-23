@@ -10,7 +10,7 @@
     "schemes": ["https"],
     "consumes": ["application/json"],
     "produces": ["application/json"],
-    "paths": {"/generate.json": {"post": {
+    "paths": {"/generate.xml": {"post": {
         "summary": "Generate Data",
         "operationId": "generateData",
         "tags": ["generate"],
@@ -42,7 +42,7 @@
           "200": {
             "description": "Expected response to a valid request",
             "schema": {
-              "default": "json"
+              "default": "xml"
             }
           },
           "default": {
