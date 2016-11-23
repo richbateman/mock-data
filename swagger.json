@@ -8,8 +8,8 @@
     "host": "www.mockaroo.com",
     "basePath": "/api",
     "schemes": ["https"],
-    "consumes": ["application/json"],
-    "produces": ["application/json"],
+    "consumes": ["application/xml"],
+    "produces": ["application/xml"],
     "paths": {"/generate.xml": {"post": {
         "summary": "Generate Data",
         "operationId": "generateData",
